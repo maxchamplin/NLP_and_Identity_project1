@@ -1,6 +1,7 @@
 # NLP_and_Identity_project1
 Code and data for NLP and identity project 1. 
-# Convokit is evil and hates me!!!! 
+# Convokit requires version 3.12.1 of H5PY, it will not work on the most up to date version.
+
 
 ## Things max needs to fix:
 1. convokit not installing on new venvs 
