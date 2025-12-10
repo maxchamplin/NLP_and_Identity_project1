@@ -1,2 +1,8 @@
 # NLP_and_Identity_project1
 Code and data for NLP and identity project 1. 
+
+
+## Things max needs to fix:
+1. convokit not installing on new venvs 
+2. finish determining subreddits
+3. copy over basic analysis tools from socio part 2 file
