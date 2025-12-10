@@ -13,7 +13,7 @@ def load_and_filter_corpus(path=str, desired_posts=None):
     
     if desired_posts is not None:
         
-        filtered_corpus = corpus.get_utterances_dataframe() #pull off top 1000 posts
+        filtered_corpus = corpus.get_utterances_dataframe().head(desired_posts) #pull off top 1000 posts
         #TODO make an option to get random posts, not first 1000
         text = f'Filtered corpus to first {desired_posts} posts.'
     
