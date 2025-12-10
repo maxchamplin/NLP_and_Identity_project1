@@ -1,6 +1,6 @@
 # NLP_and_Identity_project1
 Code and data for NLP and identity project 1. 
-
+# Convokit is evil and hates me!!!! 
 
 ## Things max needs to fix:
 1. convokit not installing on new venvs 
