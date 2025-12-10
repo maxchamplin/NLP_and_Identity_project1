@@ -10,7 +10,7 @@ def load_and_filter_corpus(path=str, desired_posts=None):
     text = ''
     if desired_posts is None:
         text = 'No filtering applied to corpus.'
-    
+        return corpus.get_utterances_dataframe()
     if desired_posts is not None:
         
         filtered_corpus = corpus.get_utterances_dataframe().head(desired_posts) #pull off top X posts
