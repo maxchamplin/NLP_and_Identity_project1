@@ -12,13 +12,15 @@ def load_and_filter_corpus(path=str, desired_posts=None):
         text = 'No filtering applied to corpus.'
     
     if desired_posts is not None:
+        
         filtered_corpus = corpus.get_utterances_dataframe() #pull off top 1000 posts
         #TODO make an option to get random posts, not first 1000
         text = f'Filtered corpus to first {desired_posts} posts.'
+    
+    print(text)
         
         
-        
-    return text, filtered_corpus
+    return  filtered_corpus
 
 
 def analyze_differences(corpus1, corpus2):
