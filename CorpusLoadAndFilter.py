@@ -1,4 +1,4 @@
-from convokit import Corpus, download, PolitenessStrategies
+import convokit
 import random
 import lftk 
 import matplotlib.pyplot as plt
@@ -21,3 +21,23 @@ def load_and_filter_corpus(path=str, desired_posts=None):
     return text, filtered_corpus
 
 
+def analyze_differences(corpus1, corpus2):
+    #analyze differences between two corpora, return most significant differences
+    analysis_results = {}
+    #TODO implement analysis logic here
+    return analysis_results
+
+
+def visualize_differences(analysis_results, corpus1 ,corpus2, differnces=dict):
+    #visualize the differences found in analysis_results
+    #TODO implement visualization logic here
+    for diff in differnces:
+        #TODO create visualizations for each difference
+        try: 
+            plt.boxplot([corpus1[diff], corpus2[diff]], labels=['Corpus 1', 'Corpus 2'],)
+            
+        except:
+            print(f"Could not visualize difference for {diff} using boxplot.")
+            continue
+    pass
+    
