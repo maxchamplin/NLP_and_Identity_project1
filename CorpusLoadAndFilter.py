@@ -25,8 +25,8 @@ def load_and_filter_corpus(path=str, desired_posts=None):
 
 def analyze_differences(corpus1, corpus2):
     #analyze differences between two corpora, return most significant differences
-    analysis_results = {}
-    meansAndDevs = {}
+    analysis_results = {'empty': 'to be implemented'}
+    meansAndDevs = {'empty': 'to be implemented'}
     #TODO implement analysis logic here
     
     
