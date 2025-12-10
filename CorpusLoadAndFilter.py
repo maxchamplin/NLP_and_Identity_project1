@@ -1,6 +1,6 @@
 import convokit
 import random
-import lftk 
+
 import matplotlib.pyplot as plt
 import numpy as np
 
