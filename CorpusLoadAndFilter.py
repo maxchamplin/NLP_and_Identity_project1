@@ -1,4 +1,5 @@
-import convokit 
+from convokit import Corpus, download, PolitenessStrategies
+import random
 import lftk 
 import matplotlib.pyplot as plt
 import numpy as np
