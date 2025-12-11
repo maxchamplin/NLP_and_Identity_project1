@@ -1,5 +1,5 @@
-from convokit import Corpus
-import regex
+import convokit
+
 from convokit import Corpus, download, TextParser, PolitenessStrategies, Classifier, BoWTransformer
 import random
 import random
