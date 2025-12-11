@@ -1,6 +1,8 @@
-import convokit
+from convokit import Corpus
+from convokit.text_processing import TextParser
 import random
-
+import nltk
+nltk.download('punkt_tab')
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -25,8 +27,8 @@ def load_and_filter_corpus(path=str, desired_posts=None):
 
 def analyze_differences(corpus1, corpus2):
     #analyze differences between two corpora, return most significant differences
-    analysis_results = {'empty': 'to be implemented'}
-    meansAndDevs = {'empty': 'to be implemented'}
+    analysis_results = {'empty': 'to be implemented0'}
+    meansAndDevs = {'empty': 'to be implemented1'}
     #TODO implement analysis logic here
     
     
@@ -49,3 +51,9 @@ def visualize_differences(title, corpus1 ,corpus2, differnces=dict):
             continue
     pass
     
+
+
+def tokenize(corpus):
+    tokenizer= TextParser(mode='tokenize')
+    tokenitzed_corpus = tokenizer.transform(corpus)
+    return tokenitzed_corpus
