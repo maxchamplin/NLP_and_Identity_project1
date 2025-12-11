@@ -5,7 +5,6 @@ from convokit import Corpus, download
 
 
 import random
-import random
 import nltk
 nltk.download('punkt_tab')
 import matplotlib.pyplot as plt
