@@ -1,16 +1,16 @@
-import convokit
-from convokit import Corpus, download
+import convokit # type: ignore
+from convokit import Corpus, download # type: ignore
 
 
 
 
 import random
-import nltk
+import nltk # type: ignore
 nltk.download('punkt_tab')
-import matplotlib.pyplot as plt
-import numpy as np
+import matplotlib.pyplot as plt # type: ignore
+import numpy as np # type: ignore
 
-from convokit.text_processing import TextParser
+from convokit.text_processing import TextParser # type: ignore
 
 def load_and_filter_corpus(path=str, desired_posts=None):
     #get corpus loaded, and check if it needs to be cut filtered to desired post size.
@@ -63,3 +63,6 @@ def tokenize(corpus):
     tokenizer= TextParser(mode='tokenize')
     tokenitzed_corpus = tokenizer.transform(corpus)
     return tokenitzed_corpus
+
+
+print('it ran ')
