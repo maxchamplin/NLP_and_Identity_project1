@@ -13,6 +13,23 @@ import numpy as np # type: ignore
 from convokit.text_processing import TextParser # type: ignore
 
 def load_and_filter_corpus(path=str, desired_posts=None):
+    
+    
+    
+    parser = TextParser(input_field='clean_text', verbosity=50,mode='tokenize')
+
+
+    filtered_corpus = parser.transform(convokit.Corpus(filename=path))
+    
+    
+    print('Corpus loaded and tokenized.')
+        
+        
+    return  filtered_corpus
+
+
+
+def load_and_filter_corpus_dataframe(path=str, desired_posts=None):
     #get corpus loaded, and check if it needs to be cut filtered to desired post size.
     corpus = convokit.Corpus(filename=path)
     text = ''
@@ -29,7 +46,6 @@ def load_and_filter_corpus(path=str, desired_posts=None):
         
         
     return  filtered_corpus
-
 
 def analyze_differences(corpus1, corpus2):
     #analyze differences between two corpora, return most significant differences
@@ -60,7 +76,7 @@ def visualize_differences(title, corpus1 ,corpus2, differnces=dict):
 
 
 def tokenize(corpus):
-    tokenizer= TextParser(mode='tokenize')
+    tokenizer= TextParser(input_field='clean_text', verbosity=50,mode='tokenize')
     tokenitzed_corpus = tokenizer.transform(corpus)
     return tokenitzed_corpus
 
