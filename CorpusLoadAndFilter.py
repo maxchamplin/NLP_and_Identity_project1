@@ -51,7 +51,7 @@ def analyze_differences(corpus1, corpus2):
     #analyze differences between two corpora, return most significant differences
     analysis_results = {'empty': 'to be implemented'}
     meansAndDevs = {'empty': 'to be implemented'}
-    summary_results = {'empty': 'to be implemented'}
+    summary_results = {'empty': []}
     #TODO figure out how to get the features into corpus file, look at socio part 1 or 2 
     #TODO create ratio of differences betweeen all features
     #TODO analysis results returns a dictionary of the score, with the name as the key, and a list like this [median of X value for corpus1, median corpus2, ratio between them]
