@@ -49,23 +49,17 @@ def load_and_filter_corpus_dataframe(path=str, desired_posts=None):
     return  filtered_corpus
 
 def features_to_csv(corpus,csv):
+    #fill provided csv file with data. 
     pos_features = lftk.search_features(domain='syntax', family="partofspeech", language="general",
                                     return_format="list_dict")
     pos_features = [f['key'] for f in pos_features]
     additional_features = ["a_word_ps", "a_bry_ps", "corr_ttr"]
     features_to_extract = pos_features + additional_features
     
-    
-    
-    
-    
-    
-    
-    
     utterances = corpus.get_utterances_dataframe()['text'].tolist()
     nlp = spacy.load("en_core_web_sm")
     # process utterances with spacy pipe
-    processed_utterances = list(nlp.pipe(corpus.get))
+    processed_utterances = list(nlp.pipe(utterances))
     LFTK = lftk.Extractor(docs=processed_utterances)
     #initialized
     features_extracted = LFTK.extract(features=features_to_extract)
@@ -99,7 +93,7 @@ def transform_corpus(corpus, csv:str):
                 else:
                     value = 0.0
         utt.meta[feature] = value
-    return corpus
+    return (corpus, features)
     
 
 
