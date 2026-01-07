@@ -1,9 +1,9 @@
 import convokit # type: ignore
 from convokit import Corpus, download # type: ignore
-
-
-
-
+import lftk
+from convokit.text_processing import TextParser
+from convokit.text_processing import TextProcessor
+import spacy 
 import random
 import nltk # type: ignore
 nltk.download('punkt_tab')
@@ -15,7 +15,7 @@ from convokit.text_processing import TextParser # type: ignore
 def load_and_filter_corpus(path=str, desired_posts=None):
     
     
-    
+    #TODO add in the filtering for the number of desired posts
     parser = TextParser(input_field='clean_text', verbosity=50,mode='tokenize')
 
 
@@ -46,6 +46,32 @@ def load_and_filter_corpus_dataframe(path=str, desired_posts=None):
         
         
     return  filtered_corpus
+
+def add_to_corpus_from_dict(corpus, dict_of_values, location_in_list):
+    output = TextProcessor(proc_fn=isFiltered, output_field='Filtered?')
+    
+    
+    
+    
+    return output
+    
+def transform_corpus(corpus):
+    pos_features = lftk.search_features(domain = 'syntax', family = "partofspeech", language="general", return_format = "list_dict")
+    pos_features = [f['key'] for f in pos_features]
+    additional_features = ["a_word_ps", "a_bry_ps", "corr_ttr"]
+    features_to_extract = pos_features + additional_features
+    
+    list_of_utterances = list(corpus.get_utterances_dataframe()['text'])
+    
+    nlp = spacy.load("en_core_web_sm")
+    just_utterances = list(nlp.pipe(list_of_utterances))
+    
+    corpus_extractor = lftk.Extractor(just_utterances)
+    output = corpus_extractor.extract(features=features_to_extract)
+
+    return output
+
+
 
 def analyze_differences(corpus1, corpus2):
     #analyze differences between two corpora, return most significant differences
@@ -80,9 +106,13 @@ def visualize_differences(title, corpus1 ,corpus2, differnces=dict):
 
 
 def tokenize(corpus):
-    tokenizer= TextParser(input_field='clean_text', verbosity=50,mode='tokenize')
-    tokenitzed_corpus = tokenizer.transform(corpus)
-    return tokenitzed_corpus
+    def countTokens(text):
+        return len(text.split())
+
+    numtokens = TextProcessor(proc_fn=countTokens, output_field='num_tokens')
+    tokenized_corpus = numtokens.transform(corpus)
+    return tokenized_corpus
+
 
 
 print('Corpus ready to be analyszed, file loaded correctly')
