@@ -48,12 +48,14 @@ def load_and_filter_corpus_dataframe(path=str, desired_posts=None):
     return  filtered_corpus
 
 def add_to_corpus_from_dict(corpus, dict_of_values, location_in_list):
-    output = TextProcessor(proc_fn=isFiltered, output_field='Filtered?')
+    """Add dictionary keys and values as new fields to corpus utterances."""
+    utterances = list(corpus.get_utterances())
     
+    for key, value in dict_of_values.items():
+        if location_in_list < len(utterances):
+            utterances[location_in_list].add_meta(key, value)
     
-    
-    
-    return output
+    return corpus
     
 def transform_corpus(corpus):
     pos_features = lftk.search_features(domain = 'syntax', family = "partofspeech", language="general", return_format = "list_dict")
@@ -71,6 +73,16 @@ def transform_corpus(corpus):
 
     return output
 
+def transform_option2(utterence):
+    nlp = spacy.load("en_core_web_sm")
+    pos_features = lftk.search_features(domain = 'syntax', family = "partofspeech", language="general", return_format = "list_dict")
+    pos_features = [f['key'] for f in pos_features]
+    additional_features = ["a_word_ps", "a_bry_ps", "corr_ttr"]
+    features_to_extract = pos_features + additional_features
+    just_utterances = list(nlp.pipe(utterence))
+    corpus_extractor = lftk.Extractor(just_utterances)
+    
+    
 
 
 def analyze_differences(corpus1, corpus2):
