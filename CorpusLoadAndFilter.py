@@ -48,13 +48,41 @@ def load_and_filter_corpus_dataframe(path=str, desired_posts=None):
         
     return  filtered_corpus
 
+def features_to_csv(corpus,csv):
+    pos_features = lftk.search_features(domain='syntax', family="partofspeech", language="general",
+                                    return_format="list_dict")
+    pos_features = [f['key'] for f in pos_features]
+    additional_features = ["a_word_ps", "a_bry_ps", "corr_ttr"]
+    features_to_extract = pos_features + additional_features
+    
+    
+    
+    
+    
+    
+    
+    
+    utterances = corpus.get_utterances_dataframe()['text'].tolist()
+    nlp = spacy.load("en_core_web_sm")
+    # process utterances with spacy pipe
+    processed_utterances = list(nlp.pipe(corpus.get))
+    LFTK = lftk.Extractor(docs=processed_utterances)
+    #initialized
+    features_extracted = LFTK.extract(features=features_to_extract)
+    #extracted
+    
+    dataframe = PD.DataFrame(features_extracted)
+    dataframe.to_csv(csv)
+    
+    
+
 def transform_corpus(corpus, csv:str):
-    features = PD.read_csv('data.csv')
+    features = PD.read_csv(csv)
 
-    features.index = new.get_utterances_dataframe().index
+    features.index = corpus.get_utterances_dataframe().index
 
 
-    for utt in new.iter_utterances():
+    for utt in corpus.iter_utterances():
         utt_id = utt.id
         features_utterance = features.loc[utt_id]
     
@@ -62,8 +90,6 @@ def transform_corpus(corpus, csv:str):
             value = features_utterance[feature]
             # normalize if needed
             if feature.startswith("n_") and not feature.startswith("n_u"):
-                value = value / utt.meta['num_tokens']
-            elif feature == "num_genz_words":
                 value = value / utt.meta['num_tokens']
             elif feature.startswith("n_u"):
                 corresponding_n_feature = feature.replace("n_u", "n_")
@@ -73,7 +99,7 @@ def transform_corpus(corpus, csv:str):
                 else:
                     value = 0.0
         utt.meta[feature] = value
-    
+    return corpus
     
 
 
