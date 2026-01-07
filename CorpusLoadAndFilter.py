@@ -5,6 +5,7 @@ from convokit.text_processing import TextParser
 from convokit.text_processing import TextProcessor
 import spacy 
 import random
+import pandas as PD
 import nltk # type: ignore
 nltk.download('punkt_tab')
 import matplotlib.pyplot as plt # type: ignore
@@ -47,40 +48,31 @@ def load_and_filter_corpus_dataframe(path=str, desired_posts=None):
         
     return  filtered_corpus
 
-def add_to_corpus_from_dict(corpus, dict_of_values, location_in_list):
-    """Add dictionary keys and values as new fields to corpus utterances."""
-    utterances = list(corpus.get_utterances())
-    
-    for key, value in dict_of_values.items():
-        if location_in_list < len(utterances):
-            utterances[location_in_list].add_meta(key, value)
-    
-    return corpus
-    
-def transform_corpus(corpus):
-    pos_features = lftk.search_features(domain = 'syntax', family = "partofspeech", language="general", return_format = "list_dict")
-    pos_features = [f['key'] for f in pos_features]
-    additional_features = ["a_word_ps", "a_bry_ps", "corr_ttr"]
-    features_to_extract = pos_features + additional_features
-    
-    list_of_utterances = list(corpus.get_utterances_dataframe()['text'])
-    
-    nlp = spacy.load("en_core_web_sm")
-    just_utterances = list(nlp.pipe(list_of_utterances))
-    
-    corpus_extractor = lftk.Extractor(just_utterances)
-    output = corpus_extractor.extract(features=features_to_extract)
+def transform_corpus(corpus, csv:str):
+    features = PD.read_csv('data.csv')
 
-    return output
+    features.index = new.get_utterances_dataframe().index
 
-def transform_option2(utterence):
-    nlp = spacy.load("en_core_web_sm")
-    pos_features = lftk.search_features(domain = 'syntax', family = "partofspeech", language="general", return_format = "list_dict")
-    pos_features = [f['key'] for f in pos_features]
-    additional_features = ["a_word_ps", "a_bry_ps", "corr_ttr"]
-    features_to_extract = pos_features + additional_features
-    just_utterances = list(nlp.pipe(utterence))
-    corpus_extractor = lftk.Extractor(just_utterances)
+
+    for utt in new.iter_utterances():
+        utt_id = utt.id
+        features_utterance = features.loc[utt_id]
+    
+        for feature in features.columns:
+            value = features_utterance[feature]
+            # normalize if needed
+            if feature.startswith("n_") and not feature.startswith("n_u"):
+                value = value / utt.meta['num_tokens']
+            elif feature == "num_genz_words":
+                value = value / utt.meta['num_tokens']
+            elif feature.startswith("n_u"):
+                corresponding_n_feature = feature.replace("n_u", "n_")
+                n_value = features_utterance[corresponding_n_feature]
+                if n_value > 0:
+                    value = value / n_value
+                else:
+                    value = 0.0
+        utt.meta[feature] = value
     
     
 
