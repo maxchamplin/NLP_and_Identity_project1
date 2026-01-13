@@ -10,9 +10,16 @@ import nltk # type: ignore
 nltk.download('punkt_tab')
 import matplotlib.pyplot as plt # type: ignore
 import numpy as np # type: ignore
-
+import statistics
 from convokit.text_processing import TextParser # type: ignore
-
+pos_features = lftk.search_features(domain='syntax', family="partofspeech", language="general",
+return_format="list_dict")
+pos_features = [f['key'] for f in pos_features]
+additional_features = ["a_word_ps", "a_bry_ps", "corr_ttr"]
+features_to_extract = pos_features + additional_features
+    
+    
+    
 def load_and_filter_corpus(path=str, desired_posts=None):
     
     
@@ -93,7 +100,7 @@ def transform_corpus(corpus, csv:str):
                 else:
                     value = 0.0
         utt.meta[feature] = value
-    return (corpus, features)
+    return corpus
     
 
 
@@ -102,12 +109,17 @@ def analyze_differences(corpus1, corpus2):
     analysis_results = {'empty': 'to be implemented'}
     meansAndDevs = {'empty': 'to be implemented'}
     summary_results = {'empty': []}
+    
+    
+    for feature in features_to_extract:
+      corpus1_features = list(corpus1.get_utterances_dataframe()[f'meta.'+ feature])
+    print(statistics.median(corpus1_features))
     #TODO figure out how to get the features into corpus file, look at socio part 1 or 2 
     #TODO create ratio of differences betweeen all features
     #TODO analysis results returns a dictionary of the score, with the name as the key, and a list like this [median of X value for corpus1, median corpus2, ratio between them]
     #TODO print a thing with the largest 3 differences
     
-    print(f'largeest 3 differences between corpora: {summary_results}')
+    print(f'largest 3 differences between corpora: {summary_results}')
     
     
     return analysis_results, meansAndDevs
