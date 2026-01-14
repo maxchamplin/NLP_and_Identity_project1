@@ -20,16 +20,17 @@ features_to_extract = pos_features + additional_features
     
     
     
-def load_and_filter_corpus(path=str, desired_posts=None):
+def load_and_filter_corpus(path:str, desired_posts:None):
     
     
     #TODO add in the filtering for the number of desired posts
     parser = TextParser(input_field='clean_text', verbosity=50,mode='tokenize')
 
-
-    filtered_corpus = parser.transform(convokit.Corpus(filename=path))
+    if desired_posts != None:
+        filtered_corpus = Corpus(filename=path, utterance_start_index=0, utterance_end_index=desired_posts)
     
-    
+    else: 
+        filtered_corpus = Corpus(filename=path)
     print('Corpus loaded and tokenized.')
         
         
