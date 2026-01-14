@@ -99,8 +99,8 @@ def transform_corpus(corpus, csv:str):
                     value = value / n_value
                 else:
                     value = 0.0
-        utt.meta[feature] = value
-    return corpus
+            utt.meta[feature] = value
+    
     
 
 
@@ -109,10 +109,10 @@ def analyze_differences(corpus1, corpus2):
     analysis_results = {'empty': 'to be implemented'}
     meansAndDevs = {'empty': 'to be implemented'}
     summary_results = {'empty': []}
-    
+    corpus1_features = []
     
     for feature in features_to_extract:
-      corpus1_features = list(corpus1.get_utterances_dataframe()[f'meta.'+ feature])
+        corpus1_features.append(list(corpus1.get_utterances_dataframe()[f'meta.'+ feature]))
     print(statistics.median(corpus1_features))
     #TODO figure out how to get the features into corpus file, look at socio part 1 or 2 
     #TODO create ratio of differences betweeen all features
