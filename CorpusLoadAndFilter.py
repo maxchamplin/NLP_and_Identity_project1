@@ -18,6 +18,20 @@ pos_features = [f['key'] for f in pos_features]
 additional_features = ["a_word_ps", "a_bry_ps", "corr_ttr"]
 features_to_extract = pos_features + additional_features
 
+'''
+If you're reading this code please dont mind that its very messy. The code all works, but I ran out of time to make it generalize-able.
+if you look at the analysis file which shows where I gave up on being able to run everything from functions in this file. 
+
+This was a very good learning experience and if I had time/reason it would be nice to redo this and allow it automatically produce charts from 
+corpus files.
+
+
+'''
+
+
+
+
+
 def filter_corpus(corpus):
     
         pre_filtered_corpus = corpus
