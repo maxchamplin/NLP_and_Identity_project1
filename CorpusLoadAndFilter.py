@@ -102,7 +102,7 @@ def features_to_csv(corpus,csv):
     pos_features = lftk.search_features(domain='syntax', family="partofspeech", language="general",
                                     return_format="list_dict")
     pos_features = [f['key'] for f in pos_features]
-    additional_features = ["a_word_ps", "a_bry_ps", "corr_ttr","fkgl","fkre"]
+    additional_features = ["a_word_ps", "a_bry_ps", "corr_ttr","fkgl","fkre",'a_kup_ps','a_kup_pw','t_bry']
     features_to_extract = pos_features + additional_features
     
     utterances = corpus.get_utterances_dataframe()['text'].tolist()
@@ -215,15 +215,16 @@ def visualize_differences(corpus1 ,corpus2, feature:str,corpus1_name:str,corpus2
 def analyze_differences_dataframe(corpus1, corpus2):
     features = list(corpus1.columns)
     for feature in features:
+        #print('feature is ',feature)
         
-        
-        if 'meta.n' in feature or 'meta.f' in feature:
+        if 'meta.n' in feature or 'meta.f' in feature or 'meta.a_' in feature or 'meta.t_bry' in feature:
 
             test_feature = []
             
             test_feature.append(list(corpus1[feature]))
 
             for x in range(len(test_feature)):
+                
                 Corpus1_median = test_feature[x]
                 Corpus1_median = [float(val) for val in Corpus1_median]
                 
