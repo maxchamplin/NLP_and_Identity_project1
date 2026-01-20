@@ -273,6 +273,7 @@ def visualize_differences_dataframe(corpus1 ,corpus2, feature:str,corpus1_name:s
     plt.ylabel(feature)
     plt.title(f'Violin Plot of {feature}  for {corpus1_name} (mean: {corpus1_mean}) and {corpus2_name} (mean: {corpus2_mean})')
     plt.show()
-
+    print(statistics.stdev(corpus1_values))
+    print(statistics.stdev(corpus2_values))
 
 print('Corpus ready to be analyszed, file loaded correctly')
