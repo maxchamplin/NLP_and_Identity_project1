@@ -83,8 +83,7 @@ For the classifier we created, we used 10,000 posts as our dataset. This was due
 
 
 %data for the phd subreddit
-In the PhD subreddit our median number of words (post filtering) per post is 78, this is higher than the teenagers who are at 
-
+In the PhD subreddit our median number of words (post filtering) per post is 78, this is higher than the teenagers who are at 65, with standard  deviations of 95 and 94 respectively. This highlights one of the most interesting parts of our data, that for the majority of our features the overall distributions are surprisingly flat. There are key differences between the two subreddits, which we will see later, but for the most part the linguistic features are very normal and do not speak to huge differences. However, in our reading ease and grade level, as well as age of word acquisition statistics there are clear differences, which we will see in further sections. 
 
 \section{Features}
 Describe the set of features you are going to use. Give examples for features that are a bit less intuitive to interpret. Repeat a hypothesis that you have regarding the relationship between certain features and certain empathy types or how they differ between communities or speakers. 
@@ -98,11 +97,20 @@ The specialized metrics for grade level and reading ease were chosen due to them
 As well, as LFTK is a powerful tool, we are also looking at a full suite of syntactic features in the data. The key features that we intend to look at based on our hypotheses of what linguistic features correlate with education levels, we expect that PhD will have more punctuation, as that is often associated with more formal writing. As well we expect the number of unique nouns to be higher for PhD as we expect that more educated people will use more unique nouns than teenagers will. Since we have the ability to look at a large number of features, we will report later surprise results from our feature variation examination. 
 
 \section{Methodology}
-Describe the steps you are going to perform in order to retrieve results. 
-(1) pre-processing (do you convert the dataset to a Corpus Object? Do you do any cleaning of the data?)
-(2) feature extraction: which tool(s) do you use?
-(3) Experimental setup for prediction task: What are your data splits? Best practice for all experiments (now and in the future): always use several (different) folds (at least 3) for training + evaluation. Report the average and standard deviation of performance results. If your target label is imbalanced, report F1 Macro Score and not accuracy. Also report the result for the positive and negative class (so you know whether you are overpredicting or undergeneralizing). 
-(4) For the feature analysis (either correlation with empathy or variation between communities), what methods are you using? E.g. plots, statistical model, or maybe you are calculating correlations? Identifying discriminating words based on frequency? Feature importance in the classification?
+%Describe the steps you are going to perform in order to retrieve results. 
+%(1) pre-processing (do you convert the dataset to a Corpus Object? Do you do any cleaning of the data?)
+%(2) feature extraction: which tool(s) do you use?
+%3) Experimental setup for prediction task: What are your data splits? Best practice for all experiments (now and in the future): always use several (different) folds (at least 3) for training + evaluation. Report the average and standard deviation of performance results. If your target label is imbalanced, report F1 Macro Score and not accuracy. Also report the result for the positive and negative class (so you know whether you are overpredicting or undergeneralizing). 
+%(4) For the feature analysis (either correlation with empathy or variation between communities), what methods are you using? E.g. plots, statistical model, or maybe you are calculating correlations? Identifying discriminating words based on frequency? Feature importance in the classification?
+
+
+
+To begin with our preprocessing we will break it down into two sections, as the classification and linguistic feature analysis used different preprocessing processes. We will begin by looking at the linguistic analysis. The first step was using the Cornell subreddit collections, downloading the entirety of the two communities' subreddits. From there they are loaded as a corpus file, and tokenized to create the field $'num_tokens'$ which is needed for further steps. From there the full corpora are put through the spacy English core small model via an LFTK extractor, the data (our LFTK features and values) is then put into a CSV file. From there the CSV file is then read into a dataframe, which is concatenated with the original Corpus objects. After the concatenation the posts with either above 350 or below 10 tokens are removed from the data\footnote{This is the main reason that only 5000 utterances were considered, this is a very inefficient way of working with the data, and unfortunately I ran out of time to rework code that already worked on statistically significant amounts of data. }. From there, we use the data to create charts and analyses using a number of statistical tools. We will see more about this in a further section.
+
+
+
+
+
 
 
 \section{Results}
