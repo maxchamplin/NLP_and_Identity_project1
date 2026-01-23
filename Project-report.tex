@@ -105,40 +105,86 @@ As well, as LFTK is a powerful tool, we are also looking at a full suite of synt
 
 
 
-To begin with our preprocessing we will break it down into two sections, as the classification and linguistic feature analysis used different preprocessing processes. We will begin by looking at the linguistic analysis. The first step was using the Cornell subreddit collections, downloading the entirety of the two communities' subreddits. From there they are loaded as a corpus file, and tokenized to create the field $'num_tokens'$ which is needed for further steps. From there the full corpora are put through the spacy English core small model via an LFTK extractor, the data (our LFTK features and values) is then put into a CSV file. From there the CSV file is then read into a dataframe, which is concatenated with the original Corpus objects. After the concatenation the posts with either above 350 or below 10 tokens are removed from the data\footnote{This is the main reason that only 5000 utterances were considered, this is a very inefficient way of working with the data, and unfortunately I ran out of time to rework code that already worked on statistically significant amounts of data. }. From there, we use the data to create charts and analyses using a number of statistical tools. We will see more about this in a further section.
+To begin with our preprocessing we will break it down into two sections, as the classification and linguistic feature analysis used different preprocessing processes. We will begin by looking at the linguistic analysis. The first step was using the Cornell subreddit collections, downloading the entirety of the two communities' subreddits. From there they are loaded as a corpus file, and tokenized to create the field $'num_tokens'$ which is needed for further steps. From there the full corpora are put through the spacy English core small model via an LFTK extractor, the data (our LFTK features and values) is then put into a CSV file. From there the CSV file is then read into a dataframe, which is concatenated with the original Corpus objects. After the concatenation the posts with either above 500 or below 10 tokens are removed from the data\footnote{This is the main reason that only 5000 utterances were considered, this is a very inefficient way of working with the data, and unfortunately I ran out of time to rework code that already worked on statistically significant amounts of data. }. From there, we use the data to create charts and analyses using a number of statistical tools. We will see more about this in a further section.
 
 
 
-
+For the classifier, data was input directly from the corpora, without filtering, this was due to the effects of short and long messages on the classifier being minimal compared to the same impacts on the linguistic feature analysis, as some features are per post and long or short posts create outliers the unfortunate ability to influence overall data. We had 10,000 utterances for both subreddits, but over 2900 conversations for the PhD subreddit, and only 575 for the Teenager subreddit. It is possible that the increase of crosstalk (i.e. posters talking to each other in comments instead of responding to main post) may have had a small influence, but we felt it was a reflection of the communities and was best left in the data. After that the utterance data was put into dataframes for both communities. From there, using Sklearn we created a number of classifiers to identify the two subreddits. 
 
 
 
 \section{Results}
-Here you should be able to answer the research questions you formulated in the beginning. 
+In the following we will examine the results of the linguistic feature analysis and the classifier.  Let us begin with the Average age of acquisition of words per sentence, as we can see in Figure \ref{Figure 1}. 
 
+\begin{figure}[h!]
+\includegraphics[height=4cm, width = 6cm]{a_kup_ps.png}
+\caption{Average Kuperman age of acquisition per sentence}
+\label{Figure 1}
+\end{figure}
+We can clearly see that the age of acquisition is higher for the PhD community with a mean of 81.6, and a standard deviation of 35.5, while the Teenager community having a mean of 64.8 with a standard deviation of 29.4. The high standard deviation will be seen throughout the data, this is caused by a wide variation in the type of post, with many posts being personal in nature, while some are highly technical, this can be seen in the larger distribution towards the high end for the PhD community. The higher prevalence in personal stories in r/Teenagers may also explain the distribution of pronouns, which we can see in Figure \ref{figure 2}
 
-\includegraphics[height=3cm, width = 7cm]{a_kup_ps.png}
-Average Kuperman age of acquisition per sentence
+\begin{figure}[h!]
 \includegraphics[height=3cm, width = 7cm]{n_pron.png}
-number of pronouns
+\label{figure 2}
+\caption{number of pronouns}
+\end{figure}
+
+With a standard deviation of around 0.05 for both communities, we can see a very large difference in the number of pronouns. Why this is, is not yet established, but it is not an expected outcome for what we imagined when comparing education. As such it points to another confounding variable for analyses of linguistic features using Reddit. The composition of the type of post (personal stories, tech help, general forum posting, etc) is not at all stable across subreddits. Future work could seek to understand what the distribution of conversational types is across subreddits. 
+
+\begin{figure}[h!]
 \includegraphics[height=3cm, width = 7cm]{num_tokens.png}
-number of tokens
+\label{figure 3}
+\caption{number of tokens}
+\end{figure}
+
+As well, as we can see in \ref{figure 3} above, the number of tokens (words). Here the difference is relatively small, with standard deviation of 95 for both subreddits, it is clear that the posts are overall about the same, but we can see that PhD is much less normal than Teenagers. The thicker lune shows us more posts from PhD nearing the 500 word filter for our data. As well, Teenagers has a notably more normal. 
+\begin{figure}[h!]
 \includegraphics[height=3cm, width = 7cm]{n_punct.png}
-number of punctuation marks 
+\label{figure 4}
+\caption{number of punctuation marks}
+\end{figure}
+Contrary to our initial hypothesis, the amount of punctuation between the subreddits is weighted towards Teenagers instead of PhD, as seen in Figure \ref{figure 4}. This is not something that we have clear explanations for, but with a standard deviation of 0.09 for Teenagers and 0.05 for PhD, this is a clear trend in the data. 
+
+\begin{figure}[h!]
 \includegraphics[height=3cm, width = 7cm]{fkgl.png}
-Flesch-Kincaid reading grade level 
+ \label{figure 5}
+\caption{Flesch-Kincaid reading grade level}
+
+ \end{figure}
+ 
+ In Figure \ref{figure 5} above we can see that the reading grade level for PhD is higher than that of Teenagers. This is of course to be expected, as we hypothesize that the more educated speakers will have a different lexicon than less educated speakers. One might note that the overall level as calculated by this metric is rather low for both PhD and Teenagers, who both appear to be writing well below what their respective levels of education would suggest. This again leads us to the issue of the type of conversation, personal stories and other such posts do not highlight lexically the educational differences. 
+ 
+ 
+ As well, in Figure \ref{figure 6}, we can see very similar data with the reading ease metric. Which allows us to see the data without the scaling of the American school system 
+ \begin{figure}[h!]
 \includegraphics[height=3cm, width = 7cm]{fkre.png}
-Flesch-Kincaid reading Ease
-\includegraphics[height=3cm, width = 7cm]{t_bry.png}
-Total brysbert age of acquisition of words. 
+\caption{Flesch-Kincaid reading Ease}
+\label{figure 6}
+\end{figure}
+
+
 \subsection{Predicting Empathy / Predicting source community}
-What are the results of the classification task? (Table and main findings)
-If you do empathy, report how many instances where correctly predicted (out of the 20).  
-\subsection{Linguistic Features}
-What are the results with respect to specific features? Plots, ranking of important features, examples, relevant words etc.
+For our classification task we ran three different models, a Bag of Words model, a TF-IDF model, and a n-gram model. The accuracy of the three models were all well above random chance, with the n-gram performing about the same as the Bag of Words model, while the TF-IDF model performed the best with about an 85\% accuracy over our test data. As well, with the models we saw the strongest correlations with lexical differences. Words like 'high school' and 'university' were key differentiators 
+
+\begin{center}
+\begin{tabular}{|| c |c | c | c || }
+\hline
+ Model & Bag of words & TF-IDF & n-gram   \\ 
+ \hline
+ \hline
+ Accuracy & 0.818 & 0.84 & 0.81 \\  
+ \hline
+
+\end{tabular}
+\end{center}
+
+
 
 \section{Discussion}
-Reflect on your findings: did you see expected results? Did you see something unexpected? What data points were missed or miss-classified by the model(s) and why? What other features would be promising? What additional information would be useful to know or annotate to perform better? Did you find particular properties of the data that made classification more or less reliable (e.g. reddit posts are over a long time span, the way empathy is annotated is oversimplified ...)
+%Reflect on your findings: did you see expected results? Did you see something unexpected? What data points were missed or miss-classified by the model(s) and why? What other features would be promising? What additional information would be useful to know or annotate to perform better? Did you find particular properties of the data that made classification more or less reliable (e.g. reddit posts are over a long time span, the way empathy is annotated is oversimplified ...)
+
+
+Overall the linguistic features were not exactly what we had expected, while the classification went well, it showed us the general trend, we are looking at lexical differences instead of having clear linguistic feature differences, with a few exceptions. As well, we did not consider the tone and use of subreddits, and that will have biased our work away from comparing like to like posts, like questions vs questions or stories vs stories. 
 
 \section{Conclusion}
 Summarize your main findings with respect to the research questions and your main discussion points / biggest problem for future work. 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.2.19)  21 JAN 2026 14:57
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.2.19)  22 JAN 2026 23:26
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -471,112 +471,81 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <9> on input line 91.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <5> on input line 91.
-<a_kup_ps.png, id=65, 687.2877pt x 381.5856pt>
+ [2]
+<a_kup_ps.png, id=75, 687.2877pt x 381.5856pt>
 File: a_kup_ps.png Graphic file (type png)
 <use a_kup_ps.png>
 Package pdftex.def Info: a_kup_ps.png  used on input line 120.
-(pdftex.def)             Requested size: 199.1615pt x 85.35814pt.
-<n_pron.png, id=67, 696.6828pt x 381.5856pt>
+(pdftex.def)             Requested size: 170.70985pt x 113.81279pt.
+
+
+Package caption Warning: \label without proper reference on input line 128.
+See the caption package documentation for explanation.
+
+
+LaTeX Warning: Reference `figure 2' on page 3 undefined on input line 124.
+
+<n_pron.png, id=78, 696.6828pt x 381.5856pt>
 File: n_pron.png Graphic file (type png)
 <use n_pron.png>
-Package pdftex.def Info: n_pron.png  used on input line 122.
+Package pdftex.def Info: n_pron.png  used on input line 127.
 (pdftex.def)             Requested size: 199.1626pt x 85.35814pt.
-<num_tokens.png, id=68, 705.3552pt x 381.5856pt>
+<num_tokens.png, id=79, 705.3552pt x 381.5856pt>
 File: num_tokens.png Graphic file (type png)
 <use num_tokens.png>
-Package pdftex.def Info: num_tokens.png  used on input line 124.
+Package pdftex.def Info: num_tokens.png  used on input line 135.
 (pdftex.def)             Requested size: 199.16634pt x 85.35814pt.
-<n_punct.png, id=69, 703.1871pt x 381.5856pt>
+
+Package caption Warning: \label without proper reference on input line 136.
+See the caption package documentation for explanation.
+
+
+LaTeX Warning: Reference `figure 3' on page 3 undefined on input line 140.
+
+<n_punct.png, id=81, 703.1871pt x 381.5856pt>
 File: n_punct.png Graphic file (type png)
 <use n_punct.png>
-Package pdftex.def Info: n_punct.png  used on input line 126.
+Package pdftex.def Info: n_punct.png  used on input line 142.
 (pdftex.def)             Requested size: 199.16576pt x 85.35814pt.
-<fkgl.png, id=70, 654.7662pt x 381.5856pt>
+
+Package caption Warning: \label without proper reference on input line 143.
+See the caption package documentation for explanation.
+
+
+LaTeX Warning: Reference `figure 4' on page 3 undefined on input line 146.
+
+<fkgl.png, id=83, 654.7662pt x 381.5856pt>
 File: fkgl.png Graphic file (type png)
 <use fkgl.png>
-Package pdftex.def Info: fkgl.png  used on input line 128.
+Package pdftex.def Info: fkgl.png  used on input line 149.
 (pdftex.def)             Requested size: 199.16888pt x 85.35814pt.
-<fkre.png, id=71, 656.2116pt x 381.5856pt>
+
+Package caption Warning: \label without proper reference on input line 150.
+See the caption package documentation for explanation.
+
+
+LaTeX Warning: Reference `figure 5' on page 3 undefined on input line 155.
+
+[3 <./a_kup_ps.png> <./n_pron.png> <./num_tokens.png> <./n_punct.png> <./fkgl.p
+ng>]
+<fkre.png, id=100, 656.2116pt x 381.5856pt>
 File: fkre.png Graphic file (type png)
 <use fkre.png>
-Package pdftex.def Info: fkre.png  used on input line 130.
+Package pdftex.def Info: fkre.png  used on input line 160.
 (pdftex.def)             Requested size: 199.16797pt x 85.35814pt.
-<t_bry.png, id=72, 662.7159pt x 381.5856pt>
-File: t_bry.png Graphic file (type png)
-<use t_bry.png>
-Package pdftex.def Info: t_bry.png  used on input line 132.
-(pdftex.def)             Requested size: 199.17023pt x 85.35814pt.
+ [4 <./fkre.png>] (./Project-report.aux)
 
-Underfull \hbox (badness 10000) in paragraph at lines 120--134
-[][]
- []
+LaTeX Warning: There were undefined references.
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 120--134
-[]
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 120--134
-\T1/ptm/m/n/10.95 (+20) num-ber of pro-nouns
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 120--134
-[]
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 120--134
-\T1/ptm/m/n/10.95 (+20) num-ber of to-kens
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 120--134
-[]
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 120--134
-\T1/ptm/m/n/10.95 (+20) num-ber of punc-tu-a-tion marks
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 120--134
-[]
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 120--134
-\T1/ptm/m/n/10.95 (+20) Flesch-Kincaid read-ing grade level
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 120--134
-[]
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 120--134
-\T1/ptm/m/n/10.95 (+20) Flesch-Kincaid read-ing Ease
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 120--134
-[]
- []
-
-[2 <./a_kup_ps.png>] [3 <./n_pron.png> <./num_tokens.png> <./n_punct.png> <./fk
-gl.png> <./fkre.png> <./t_bry.png>] (./Project-report.aux)
 Package rerunfilecheck Info: File `Project-report.out' has not changed.
-(rerunfilecheck)             Checksum: D80935AE1237EFF314A82DC880F950DD;1587.
+(rerunfilecheck)             Checksum: DC12A39A408C3E727A41FEB06F30CA2A;1431.
  ) 
 Here is how much of TeX's memory you used:
- 14018 strings out of 476025
- 227624 string characters out of 5790017
+ 14055 strings out of 476025
+ 227997 string characters out of 5790017
  1869388 words of memory out of 5000000
- 34074 multiletter control sequences out of 15000+600000
- 551268 words of font info for 186 fonts, out of 8000000 for 9000
+ 34079 multiletter control sequences out of 15000+600000
+ 552438 words of font info for 204 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  90i,10n,90p,1449b,443s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
@@ -594,10 +563,10 @@ eplaced by a fixed one
 sr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr
 /local/texlive/2023/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/tex
 live/2023/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
-Output written on Project-report.pdf (3 pages, 255571 bytes).
+Output written on Project-report.pdf (4 pages, 234037 bytes).
 PDF statistics:
- 127 PDF objects out of 1000 (max. 8388607)
- 97 compressed objects within 1 object stream
- 22 named destinations out of 1000 (max. 500000)
- 42116 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 139 PDF objects out of 1000 (max. 8388607)
+ 109 compressed objects within 2 object streams
+ 28 named destinations out of 1000 (max. 500000)
+ 42103 words of extra memory for PDF output out of 42996 (max. 10000000)
 
