@@ -79,7 +79,8 @@ Language is an innate part of the human cognition system. Perhaps it is through 
 In this project the dataset used came from two subreddits: r/Teenagers and r/PhD. The data used was a subsample of 5000 posts, which was then filtered to only include those over 10 and less than 500 words. In total we had about 2696 posts for the Teenager subreddit and about 3286 for the PhD subreddit. The choice for 5000 posts which was then filtered was made considering the statistical significance of our set over the 1 million or so posts in the teenagers dataset. As well, the size was chosen to reflect the limitations on computing power as each additional post added about a second of processing time for the machine. 
 
 
-For the classifier we created, we used 10,000 posts as our dataset. This was due to the higher demand for relevant data that was needed for the classification tasks than for the linguistic feature identification. While we have chosen to have two separate datasets, the data from both is reliable as there is more than sufficient data to have an accurate sampling of the data at hand. 
+For the classifier we created, the entirety of the PhD subreddit was loaded, while only a subset of the Teenager subreddit was added to our classifier. There were 10,001 utterances for each dataset, there were 2700 speakers in the PhD dataset, and 1699 for the teenager dataset. This as well as the smaller number of conversations in the Teenager data, informs us that there are more long threads of people replying to each other in the Teenagers subreddit. 
+
 
 
 %data for the phd subreddit
@@ -109,7 +110,7 @@ To begin with our preprocessing we will break it down into two sections, as the 
 
 
 
-For the classifier, data was input directly from the corpora, without filtering, this was due to the effects of short and long messages on the classifier being minimal compared to the same impacts on the linguistic feature analysis, as some features are per post and long or short posts create outliers the unfortunate ability to influence overall data. We had 10,000 utterances for both subreddits, but over 2900 conversations for the PhD subreddit, and only 575 for the Teenager subreddit. It is possible that the increase of crosstalk (i.e. posters talking to each other in comments instead of responding to main post) may have had a small influence, but we felt it was a reflection of the communities and was best left in the data. After that the utterance data was put into dataframes for both communities. From there, using Sklearn we created a number of classifiers to identify the two subreddits. 
+For the classifier, data was input directly from the corpora, without filtering, this was due to the effects of short and long messages on the classifier being minimal compared to the same impacts on the linguistic feature analysis, as some features are per post and long or short posts create outliers the unfortunate ability to influence overall data. We had 10,000 utterances for both subreddits, but over 2900 conversations for the PhD subreddit, and only 575 for the Teenager subreddit. It is possible that the increase of crosstalk (i.e. posters talking to each other in comments instead of responding to main post) may have had a small influence, but we felt it was a reflection of the communities and was best left in the data. After that the utterance data was put into dataframes for both communities. After this step, we merged the datasets to create a single dataframe with labels for the correct subreddit. We then break the data into test and training sets. The training and testing sets contain both an input and the output–since we will be predicting the subreddit from the utterance, the utterance is the input and the label is the output. The utterances are in text form and must be converted to a numerical form. Two methods were used for this–bag of words and TF-IDF, including an attempt to improve accuracy through n-gram features.
 
 
 
@@ -125,31 +126,34 @@ We can clearly see that the age of acquisition is higher for the PhD community w
 
 \begin{figure}[h!]
 \includegraphics[height=3cm, width = 7cm]{n_pron.png}
-\label{figure 2}
+
 \caption{number of pronouns}
+\label{figure 2}
 \end{figure}
 
 With a standard deviation of around 0.05 for both communities, we can see a very large difference in the number of pronouns. Why this is, is not yet established, but it is not an expected outcome for what we imagined when comparing education. As such it points to another confounding variable for analyses of linguistic features using Reddit. The composition of the type of post (personal stories, tech help, general forum posting, etc) is not at all stable across subreddits. Future work could seek to understand what the distribution of conversational types is across subreddits. 
 
 \begin{figure}[h!]
 \includegraphics[height=3cm, width = 7cm]{num_tokens.png}
-\label{figure 3}
+
 \caption{number of tokens}
+\label{figure 3}
 \end{figure}
 
 As well, as we can see in \ref{figure 3} above, the number of tokens (words). Here the difference is relatively small, with standard deviation of 95 for both subreddits, it is clear that the posts are overall about the same, but we can see that PhD is much less normal than Teenagers. The thicker lune shows us more posts from PhD nearing the 500 word filter for our data. As well, Teenagers has a notably more normal. 
 \begin{figure}[h!]
 \includegraphics[height=3cm, width = 7cm]{n_punct.png}
-\label{figure 4}
+
 \caption{number of punctuation marks}
+\label{figure 4}
 \end{figure}
 Contrary to our initial hypothesis, the amount of punctuation between the subreddits is weighted towards Teenagers instead of PhD, as seen in Figure \ref{figure 4}. This is not something that we have clear explanations for, but with a standard deviation of 0.09 for Teenagers and 0.05 for PhD, this is a clear trend in the data. 
 
 \begin{figure}[h!]
 \includegraphics[height=3cm, width = 7cm]{fkgl.png}
- \label{figure 5}
-\caption{Flesch-Kincaid reading grade level}
 
+\caption{Flesch-Kincaid reading grade level}
+ \label{figure 5}
  \end{figure}
  
  In Figure \ref{figure 5} above we can see that the reading grade level for PhD is higher than that of Teenagers. This is of course to be expected, as we hypothesize that the more educated speakers will have a different lexicon than less educated speakers. One might note that the overall level as calculated by this metric is rather low for both PhD and Teenagers, who both appear to be writing well below what their respective levels of education would suggest. This again leads us to the issue of the type of conversation, personal stories and other such posts do not highlight lexically the educational differences. 
@@ -163,8 +167,16 @@ Contrary to our initial hypothesis, the amount of punctuation between the subred
 \end{figure}
 
 
-\subsection{Predicting Empathy / Predicting source community}
-For our classification task we ran three different models, a Bag of Words model, a TF-IDF model, and a n-gram model. The accuracy of the three models were all well above random chance, with the n-gram performing about the same as the Bag of Words model, while the TF-IDF model performed the best with about an 85\% accuracy over our test data. As well, with the models we saw the strongest correlations with lexical differences. Words like 'high school' and 'university' were key differentiators 
+\subsection{Predicting source community}
+For our classification task we ran three different models, a Bag of Words model, a TF-IDF model, and a N-gram model. 
+For the BoW model the entirety of the ‘input’ for the training data is made into a list of all of the unique words inside of it. And then, for each utterance, a vector is created to indicate which of those unique words appear in the utterance, along with how many times each of those words appears. This allows for a rough way for the model to distinguish between the communities, but there is no control for frequent words like \textit{the}. 
+The n-gram is the same as the BoW but instead of the list of all unique words, it also includes unique pairs of words (since the n-gram range was set to (1, 2)). 
+And our final model the, TF-IDF builds upon the BoW, as it keeps track of how many times each unique word appears in a given utterance, then factors in how often that word appears across the entire training dataset. By factoring in rarity, it punishes words like ‘the’ and ‘is’ for being too common. So for example, TF-IDF would treat the word ‘the’ the same as the word ‘thesis’ if they were 
+equally common in a given utterance.
+
+For the training, the classifiers observed the training dataset, then draws a hyperplane that maximizes distance between the two clusters on either side, to make a prediction it simply sees which side of the line the point falls on. 
+The accuracy of the three models were all well above random chance, with the n-gram performing about the same as the Bag of Words model, while the TF-IDF model performed the best with about an 85\% accuracy over our test data. As well, with the models we saw the strongest correlations with lexical differences. Words like 'high school' and 'university' were key differentiators 
+
 
 \begin{center}
 \begin{tabular}{|| c |c | c | c || }
@@ -184,17 +196,21 @@ For our classification task we ran three different models, a Bag of Words model,
 %Reflect on your findings: did you see expected results? Did you see something unexpected? What data points were missed or miss-classified by the model(s) and why? What other features would be promising? What additional information would be useful to know or annotate to perform better? Did you find particular properties of the data that made classification more or less reliable (e.g. reddit posts are over a long time span, the way empathy is annotated is oversimplified ...)
 
 
-Overall the linguistic features were not exactly what we had expected, while the classification went well, it showed us the general trend, we are looking at lexical differences instead of having clear linguistic feature differences, with a few exceptions. As well, we did not consider the tone and use of subreddits, and that will have biased our work away from comparing like to like posts, like questions vs questions or stories vs stories. 
+Overall the linguistic features were not exactly what we had expected, while the classification went well, it showed us the general trend, we are looking at lexical differences instead of having clear linguistic feature differences, with a few exceptions. As well, we did not consider the tone and use of subreddits, and that will have biased our work away from comparing like to like posts, like questions vs questions or stories vs stories. This then, leaves us with results that are unexpected from our initial expectations, at least in part, and leave open a goodly amount of ground for further work in this area. Our classification work as well highlighted the key differences between the subreddits, as they are easily distinguished even by simple models, including an n-gram model, which tells us, even without looking directly at the words used, along with our reading ease and grade level metrics that we are looking at nearly a purely lexical difference between the two subreddits. 
 
 \section{Conclusion}
-Summarize your main findings with respect to the research questions and your main discussion points / biggest problem for future work. 
+Taking 5000, and 10000 posts from the Teenagers and PhD subreddits we sought to examine how linguistic differences through education present themselves on reddit. By using metrics like Flesch-Kincaid reading ease and grade level, as well as Brysbert age of acquisition of words, we had a number of specialized tools to examine the lexical differences between the two subreddits. As well, we had a whole suite of general linguistic features. 
+
+We showed that there are not major linguistic feature differences between the Teenagers and the PhD subreddits, this is contrary to our initial expectations. Instead while there are differences they are mainly limited to the areas of post type (see higher use of pronouns in r/Teenagers), and the lexical variation is the key factor between them. 
 \appendix
 
-\section{Example Appendix}
-\label{sec:appendix}
-\subsection{Use of generative AI}
-If you used generative AI for the allowed purposes, specify here what for and which one you used.
-\subsection{Additional Figures and Tables}
+
+\section{Use of generative AI}
+No generative AI was used in the writing of this paper. No AI was used in the writing of the Corpus Load and Filter or Analysis files. I cannot speak to the use of GenAI tools in the NLP\_A1 file.  
+
+\subsection{Link to Github}
+
+The code for this assignment can be accessed at this link: \url{https://github.com/maxchamplin/NLP_and_Identity_project1}
 
 
 \end{document}
